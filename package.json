@@ -1,0 +1,27 @@
+{
+  "name": "agent-stratify-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.0.3",
+    "d3": "^7.9.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@stdlib/stats-ranks": "^0.2.2",
+    "jstat": "^1.9.6",
+    "kd-tree-javascript": "^1.0.3"
+  }
+}
