@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agent Stratification Demo</title>
+  <script type="module" crossorigin src="./assets/index-y4_3d48J.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DP1LosMk.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="controls" class="sidebar">
+    <button id="start-btn">Start</button>
+    <button id="pause-btn">Pause</button>
+    <button id="reset-btn">Reset</button>
+    <button id="step-btn">Step</button>
+
+    <label>
+      Color by:
+      <select id="feature-select"></select>
+    </label>
+
+    <fieldset class="slider-group">
+      <legend>Model Parameters</legend>
+
+      <label>
+        Env Quality Noise σ:
+        <input id="slider-env-noise" type="range" min="0" max="2" step="0.01" value="0.1" />
+        <span id="label-env-noise"></span>
+      </label>
+
+      <label>
+        Environment ← Education Success due to → Genes:
+        <input id="slider-gene-env" type="range" min="0" max="1" step="0.01" value="0.5" />
+        <span id="label-gene-env"></span>
+      </label>
+
+      <label>
+        Parent Wealth ← Wealth is due to → Education success
+        <input id="slider-fin-weight" type="range" min="0" max="1" step="0.01" value="0.7" />
+        <span id="label-fin-weight"></span>
+      </label>
+
+      <label>
+        Finance Success Noise σ:
+        <input id="slider-fin-noise" type="range" min="0" max="2" step="0.01" value="0.10" />
+        <span id="label-fin-noise"></span>
+      </label>
+
+      <label>
+        Gene Homophily for Mating:
+        <input id="slider-hom-gene" type="range" min="0" max="1" step="0.01" value="0.0" />
+        <span id="label-hom-gene"></span>
+      </label>
+
+      <label>
+        Env Homophily for Mating:
+        <input id="slider-hom-env" type="range" min="0" max="1" step="0.01" value="0.0" />
+        <span id="label-hom-env"></span>
+      </label>
+
+    </fieldset>
+  
+  </aside>
+
+    <main class="content">
+      
+      <div class="raster-container">
+        
+        <p id="status"></p>
+        <canvas id="raster" width="400" height="400"></canvas>
+      </div>
+      
+      
+      <div class="plots-container">
+        <h3 id="hist-title">Distribution of income</h3>
+        <svg id="histogram" width="400" height="200"></svg>
+
+        <h3>Lorenz Curve</h3>
+        <svg id="lorenz" width="400" height="200"></svg>
+
+        <h3>Gini Over Time</h3>
+        <svg id="gini"   width="400" height="200"></svg>
+      </div>
+    </main>
+  </div>
+
+  <!-- make sure this is *after* all your elements -->
+</body>
+</html>
