@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Agent Stratification Demo</title>
-  <script type="module" crossorigin src="./assets/index-y4_3d48J.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DP1LosMk.css">
+  <script type="module" crossorigin src="./assets/index-Z-8zQ_dM.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-kjATt5-6.css">
 </head>
 <body>
   <div class="layout">
@@ -24,37 +24,43 @@
       <legend>Model Parameters</legend>
 
       <label>
-        Env Quality Noise σ:
+        <span class="label">Env Quality Noise σ:</span>
+        <span class="info">Random Gaussian variation in environmental endowment.</span><br />
         <input id="slider-env-noise" type="range" min="0" max="2" step="0.01" value="0.1" />
         <span id="label-env-noise"></span>
       </label>
 
       <label>
-        Environment ← Education Success due to → Genes:
+        <span class="label">Environment → Education Success ← Genes:</span>
+        <span class="info">Education success is a mix of genetic talent and environmental endowment.</span><br />
         <input id="slider-gene-env" type="range" min="0" max="1" step="0.01" value="0.5" />
         <span id="label-gene-env"></span>
       </label>
 
       <label>
-        Parent Wealth ← Wealth is due to → Education success
+        <span class="label">Education → Wealth Weight:</span>
+        <span class="info">Proportion of child wealth determined by education vs. parental wealth.</span><br />
         <input id="slider-fin-weight" type="range" min="0" max="1" step="0.01" value="0.7" />
         <span id="label-fin-weight"></span>
       </label>
 
       <label>
-        Finance Success Noise σ:
+        <span class="label">Finance Success Noise σ:</span>
+        <span class="info">Random Gaussian noise in wealth attainment (e.g., luck or accidents).</span><br />
         <input id="slider-fin-noise" type="range" min="0" max="2" step="0.01" value="0.10" />
         <span id="label-fin-noise"></span>
       </label>
 
       <label>
-        Gene Homophily for Mating:
+        <span class="label">Gene Homophily:</span>
+        <span class="info">Degree of assortative mating by genetic trait (0 = random; 1 = strict).</span><br />
         <input id="slider-hom-gene" type="range" min="0" max="1" step="0.01" value="0.0" />
         <span id="label-hom-gene"></span>
       </label>
 
       <label>
-        Env Homophily for Mating:
+        <span class="label">Environment Homophily:</span>
+        <span class="info">Degree of assortative mating by environmental endowment (0 = random; 1 = strict).</span><br />
         <input id="slider-hom-env" type="range" min="0" max="1" step="0.01" value="0.0" />
         <span id="label-hom-env"></span>
       </label>
@@ -65,12 +71,24 @@
 
     <main class="content">
       
+      
+      
       <div class="raster-container">
         
         <p id="status"></p>
-        <canvas id="raster" width="400" height="400"></canvas>
-      </div>
       
+        <canvas id="raster" width="400" height="400"></canvas>
+
+        <div class="help-panel">
+          <label for="help-dropdown">Help:</label>
+          <select id="help-dropdown">
+            <!-- options will be injected by TS -->
+          </select>
+          <div id="help-container"></div>
+        </div>
+        
+      
+      </div>
       
       <div class="plots-container">
         <h3 id="hist-title">Distribution of income</h3>
