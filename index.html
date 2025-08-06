@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Agent Stratification Demo</title>
-  <script type="module" crossorigin src="./assets/index-DFo2mVyf.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-kjATt5-6.css">
+  <script type="module" crossorigin src="./assets/index-DXzoRWpi.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Bdf-5qki.css">
 </head>
 <body>
   <div class="layout">
@@ -68,38 +68,28 @@
     </fieldset>
   
   </aside>
-
     <main class="content">
-      
-      
-      
       <div class="raster-container">
-        
-        <p id="status"></p>
-        <p id="intro-text">Each "pixel" below is one agent. Each agent has it's own genetic
-        potential, environmental endowment, education success, and level of
-        wealth. To produce each new generation, the agents will be sampled and
-        mated to other agents (with some degree of assortative mating), and then
-        the offspring will inherit a mix of their parents' traits, and their
-        environment will be determined by their parents' wealth. There is some
-        random noise you can add into this process too. See the parameters to
-        the left, and the help text below for more information.
-        </p>
-        <canvas id="raster" width="400" height="400"></canvas>
+        <h2>Agent-Based Inheritance & Socioeconomic Simulator</h2>
 
         <div class="help-panel">
-          <label for="help-dropdown">Help:</label>
-          <select id="help-dropdown">
-            <!-- options will be injected by TS -->
-          </select>
-          <div id="help-container"></div>
+          <h3 class="help-title">
+            
+            <select id="help-dropdown"></select>
+            <span id="help-heading" class="help-heading"></span>
+          </h3>
+          <div id="help-container" class="help-content"></div>
         </div>
-        
-      
+
+
+        <p id="status"></p>
+        <canvas id="raster" width="400" height="400"></canvas>
       </div>
-      
       <div class="plots-container">
-        <h3 id="hist-title">Distribution of income</h3>
+        <h3 id="hist-wealth-title">Distribution of wealth</h3>
+        <svg id="histogram-wealth" width="400" height="200"></svg>
+
+        <h3 id="hist-title">Distribution of wealth</h3>
         <svg id="histogram" width="400" height="200"></svg>
 
         <h3>Lorenz Curve</h3>
