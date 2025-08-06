@@ -1,5 +1,5 @@
 // src/viz/raster.ts
-// Raster visualization: prepare data and draw agents in an income-ordered grid on HTML Canvas.
+// Raster visualization: prepare data and draw agents in an wealth-ordered grid on HTML Canvas.
 
 import { Agent } from '../model'
 
@@ -12,11 +12,11 @@ type ColorScale = (value: number) => string
  */
 export function prepareRasterArray(
   pop: Agent[],
-  featureKey: keyof Pick<Agent, 'meanAllele' | 'env' | 'educationScore' | 'income' | 'parentIncome'>
+  featureKey: keyof Pick<Agent, 'meanAllele' | 'env' | 'educationScore' | 'wealth' | 'parentWealth'>
 ): number[] {
-  const sorted = [...pop].sort((a, b) => - a.income + b.income)
+  const sorted = [...pop].sort((a, b) => - a.wealth + b.wealth)
   let featureValues = sorted.map(agent => agent[featureKey] as number)
-  if (['income', 'parentIncome'].includes(featureKey)) {
+  if (['wealth', 'parentWealth'].includes(featureKey)) {
     featureValues = featureValues.map(v => Math.log10(v + 1))
   }
   return featureValues

@@ -39,11 +39,13 @@ export const helpSections: HelpSection[] = [
     content: `
       <h3>How the Model Runs</h3>
       <ul>
-        <li>Genes: each agent inherits one randomly chosen "education" gene from each parent, with occasional mutation.</li>
-        <li>Environment: set by parents' wealth each generation, with optional noise added in to account for chance.</li>
-        <li>Education: education success is a function of the average gene value, and the average environment value, weighted by the proportion contribution slider.</li>
-        <li>Wealth: weighted mix of education vs. parental wealth (Education → Wealth slider).</li>
-        <li>Mating Logic: random or assortative by genes/environment controlled by homophily sliders.</li>
+        <li><strong>Initial</strong></strong> population: most parameters are drawn directly from a Gaussian distribution. Agent properties then evolve with each generation from there.</li>
+        <li><strong>Genes</strong>: each agent inherits one randomly chosen "education" gene from each parent, with occasional mutation.</li>
+        <li><strong>Environment</strong>: determined by the sum of parents' wealth, with optional noise added in to account for chance.</li>
+        <li><strong>Education</strong>: is a function of the agent's average gene value (they inherit 2 alleles), and the environment value, weighted by the gene-environment proportion slider.</li>
+        <li><strong>Wealth</strong>: is a function of the agent's education success and parental wealth, weighted by the education-parental-wealth proportion slider.</li>
+        <li><strong>Mating Logic</strong>: random or assortative by genes/environment controlled by homophily sliders.</li>
+        <li><strong>Inter-generational wealth catastrophe</strong>: there is a small chance that some or all wealth will be lost between generations.</li>
       </ul>
     `
   },
@@ -53,11 +55,11 @@ export const helpSections: HelpSection[] = [
     content: `
       <h3>Plots</h3>
       <ul>
-        <li><strong>Population Raster</strong>: grid of agents colored by the selected attribute.</li>
-        <li><strong>Lorenz Curve</strong>: cumulative share of agents vs. cumulative share of wealth.</li>
-        <li><strong>Gini Coefficient</strong>: summary statistic (0–1) of wealth inequality.</li>
-        <li><strong>Histogram</strong>: distribution of genes, environment, education, or wealth.</li>
-        <li><strong>Time Series</strong>: tracks summary stats across generations.</li>
+      <li><strong>Population Raster (center)</strong>: grid of agents colored by the selected attribute, always ordered by wealth.</li>
+      <li><strong>Histogram</strong>: distribution of genes, environment, education, or wealth.</li>
+      <li><strong>Lorenz Curve</strong>: cumulative share of agents vs. cumulative share of wealth. Perfect wealth equality is a diagonal line.</li>
+      <li><strong>Gini Coefficient</strong>: summary statistic (0&ndash;1) of wealth inequality.</li>
+      <li><strong>Time Series</strong>: tracks summary stats across generations.</li>
       </ul>
     `
   },

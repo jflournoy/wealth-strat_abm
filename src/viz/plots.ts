@@ -7,16 +7,16 @@ import { Agent } from '../model'
  * Returns an array of [cumulative population proportion, cumulative wealth proportion].
  */
 export function computeLorenz(pop: Agent[]): [number, number][] {
-  const sorted = [...pop].sort((a, b) => a.income - b.income)
+  const sorted = [...pop].sort((a, b) => a.wealth - b.wealth)
   const N = sorted.length
-  const totalWealth = d3.sum(sorted, d => d.income) || 0
+  const totalWealth = d3.sum(sorted, d => d.wealth) || 0
   let cumWealth = 0
 
   // start at (0,0)
   const points: [number, number][] = [[0, 0]]
 
   sorted.forEach((d, i) => {
-    cumWealth += d.income
+    cumWealth += d.wealth
     points.push([
       (i + 1) / N,
       totalWealth > 0 ? cumWealth / totalWealth : 0
@@ -36,7 +36,7 @@ export function computeGini(wealth: number[]): number {
 
   // reuse computeLorenz but only need the y-values
   const lorenz = computeLorenz(
-    wealth.map(w => ({ income: w } as Agent))
+    wealth.map(w => ({ wealth: w } as Agent))
   )
 
   // trapezoidal integration

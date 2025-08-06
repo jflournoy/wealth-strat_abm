@@ -3,8 +3,8 @@
 import { kdTree } from 'kd-tree-javascript'
 import { normal, beta, rank, spearmancoeff } from 'jstat';
 
-//for turning financialScore into income
-const MU_L    = Math.log(1_000);  // sets the median bulk income (~$50 k)
+//for turning financialScore into wealth
+const MU_L    = Math.log(1_000);  // sets the median bulk wealth (~$50 k)
 const SIGMA_L = .5;               // log-normal spread of the bulk
 const KAPPA   = 1;               // Pareto tail exponent (larger ⇒ thinner tail)
 
@@ -37,7 +37,7 @@ export interface Params {
 }
 
 export const defaultParams: Params = {
-  populationSize:  10000,
+  populationSize:  6400,
   geneEnvWeight:   0.5,
   envNoiseStd:     0.1,
   financeWeight:   0.7,
@@ -53,11 +53,11 @@ export interface Agent {
   id: number
   alleles: [number, number]     // two real-valued genes
   meanAllele: number          // mean of alleles (for convenience)
-  parentIncome: number
+  parentWealth: number
   env: number                   // scalar environment
   rawenv: number // without noise
   educationScore: number
-  income: number //computed from financialScore
+  wealth: number //computed from financialScore
   parents: [Agent, Agent] | null
 }
 
@@ -77,14 +77,14 @@ export function initializePopulation(params: Params): Agent[] {
       id: i,
       alleles,
       meanAllele: (alleles[0] + alleles[1]) / 2,
-      parentIncome: 100_000, // no parents yet
+      parentWealth: 100_000, // no parents yet
       env: env,
       rawenv: env, // without noise
       educationScore: normal.sample(0, 1),
       parents: null,
-      income: 0,
+      wealth: 0,
     }
-    a.income = computeIncomeFromScore(a, params)
+    a.wealth = computeWealthFromScore(a, params)
     pop.push(a)
   }
 
@@ -97,8 +97,8 @@ export function computeEducationScore(a: Agent, params: Params): number {
        + (1 - params.geneEnvWeight) * a.env
 }
 
-export function envFromInc(agents: Agent[], params: Params): void {
-  const inc = agents.map(a => a.parentIncome);
+export function envFromWealth(agents: Agent[], params: Params): void {
+  const inc = agents.map(a => a.parentWealth);
 
   // 1) Compute average ranks (ties are averaged)
   const rawRanks = rank(inc);
@@ -116,11 +116,9 @@ export function envFromInc(agents: Agent[], params: Params): void {
   });
 }
 
-// --- FUNCTION: map a single financialScore to an income ---
-export function computeIncomeFromScore(a: Agent, params: Params): number {
-  // 1. bulk (log-normal) baseline
-  //    if `financialScore` is a standard normal, adding it here warps the bulk
-  function computePotentialIncome(score: number, noise: number): number {
+// --- FUNCTION: map a single financialScore to an wealth ---
+export function computeWealthFromScore(a: Agent, params: Params): number {
+  function computePotentialWealth(score: number, noise: number): number {
     const noiseTerm = noise === 0 ? 0 : normal.sample(0, noise)
     const L = Math.exp(
       MU_L
@@ -137,13 +135,13 @@ export function computeIncomeFromScore(a: Agent, params: Params): number {
     return L * P;
   }
 
-  const potentialIncome = computePotentialIncome(a.educationScore, params.financeNoise);
-  // 4. apply finance weight and small chance of parent income catastrophe
-  const income = params.financeWeight * potentialIncome
+  const potentialWealth = computePotentialWealth(a.educationScore, params.financeNoise);
+  // 4. apply finance weight and small chance of parent wealth catastrophe
+  const wealth = params.financeWeight * potentialWealth
     + (1 - params.financeWeight) 
-    * (computePotentialIncome(a.rawenv, 0) + a.parentIncome * beta.sample(.01, 1));
+    * (computePotentialWealth(a.rawenv, 0) + a.parentWealth * beta.sample(.01, 1));
 
-  return income;
+  return wealth;
 }
 
 /** Helper type for a mating pair */
@@ -268,7 +266,7 @@ export function mate(
   params: Params,
   nextIdStart: number
 ): Agent[] {
-  const parentIncome = (pair.a.income + pair.b.income)
+  const parentWealth = (pair.a.wealth + pair.b.wealth)
   const kids: Agent[] = []
 
   for (let k = 0; k < 2; k++) {
@@ -283,29 +281,29 @@ export function mate(
           normal.sample(0, 1) :
           pair.b.alleles[Math.floor(Math.random() * 2)],
       ],
-      parentIncome: parentIncome,
+      parentWealth: parentWealth,
       educationScore: 0,
       parents: [
         {
           id: pair.a.id,
           alleles: pair.a.alleles,
           meanAllele: pair.a.meanAllele,
-          parentIncome: pair.a.parentIncome,
+          parentWealth: pair.a.parentWealth,
           env: pair.a.env,
           rawenv: pair.a.rawenv,
           educationScore: pair.a.educationScore,
-          income: pair.a.income,
+          wealth: pair.a.wealth,
           parents: null
         },
         {
           id: pair.b.id,
           alleles: pair.b.alleles,
           meanAllele: pair.b.meanAllele,
-          parentIncome: pair.b.parentIncome,
+          parentWealth: pair.b.parentWealth,
           env: pair.b.env,
           rawenv: pair.b.rawenv,
           educationScore: pair.b.educationScore,
-          income: pair.b.income,
+          wealth: pair.b.wealth,
           parents: null
         }
       ]
@@ -336,14 +334,14 @@ export function nextGeneration(
       nextId++
     })
   })
-  envFromInc(newPop, params);
+  envFromWealth(newPop, params);
   newPop.forEach(kid => {
     const [n0, n1] = kid.alleles;
     kid.meanAllele = (n0 + n1) / 2;
   })
   newPop.forEach(kid => {
     kid.educationScore = computeEducationScore(kid, params);
-    kid.income = computeIncomeFromScore(kid, params);
+    kid.wealth = computeWealthFromScore(kid, params);
   })
 
   return newPop

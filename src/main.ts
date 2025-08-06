@@ -94,6 +94,7 @@ canvas.height = 400
 const lorenzSvg = d3.select('#lorenz') as d3.Selection<SVGSVGElement, unknown, null, undefined>
 const giniSvg   = d3.select('#gini')   as d3.Selection<SVGSVGElement, unknown, null, undefined>
 const histSvg = d3.select('#histogram') as d3.Selection<SVGSVGElement, unknown, null, undefined>
+const histWealthSvg = d3.select('#histogram-wealth') as d3.Selection<SVGSVGElement, unknown, null, undefined>
 const histTitle = document.getElementById('hist-title')     as HTMLElement
 
 // Helpers
@@ -144,8 +145,8 @@ const colorScales: Record<FeatureKey, d3.ScaleSequential<string>> = {
   meanAllele:  d3.scaleSequential(d3.interpolateViridis),
   env:      d3.scaleSequential(d3.interpolatePlasma),
   educationScore: d3.scaleSequential(d3.interpolateInferno),
-  income:   d3.scaleSequential(d3.interpolateCividis),
-  parentIncome: d3.scaleSequential(d3.interpolateMagma),
+  wealth:   d3.scaleSequential(d3.interpolateCividis),
+  parentWealth: d3.scaleSequential(d3.interpolateMagma),
 }
 
 // Core routines
@@ -160,7 +161,7 @@ function reset() {
   generation = 0
 
   // seed an initial Gini so drawGiniTimeSeries never sees an empty array
-  const initialWealth = population.map(a => a.income)
+  const initialWealth = population.map(a => a.wealth)
   historyGini.push(computeGini(initialWealth))
   
   draw()
@@ -168,7 +169,7 @@ function reset() {
 
 function tick() {
   population = nextGeneration(population, params)
-  const wealthArray = population.map(a => a.income)
+  const wealthArray = population.map(a => a.wealth)
   historyGini.push(computeGini(wealthArray))
   generation += 1
   draw()
@@ -179,6 +180,7 @@ function draw() {
   // 1) Raster
   const featureKey = featureSelect.value as FeatureKey
   const rawArr = prepareRasterArray(population, featureKey)
+  const rawWealthArr = prepareRasterArray(population, 'wealth')
     
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   const { rows, cols } = computeGrid(rawArr.length)
@@ -192,12 +194,18 @@ function draw() {
   drawGiniTimeSeries(giniSvg, historyGini)
 
   // 3) Histogram
-  histTitle.textContent = `Distribution of ${featureKey}`
+  histTitle.textContent = `Distribution of Selected Feature: ${featureKey}`
   drawHistogram(
     histSvg, 
     rawArr, 
     20, 
-    ['income', 'educationScore'].includes(featureKey) ? true : false
+    ['wealth'].includes(featureKey) ? true : false
+  )
+  drawHistogram(
+    histWealthSvg, 
+    rawWealthArr, 
+    20, 
+    true
   )
 
   // 4) Status
@@ -223,14 +231,14 @@ bindSlider(sliderHomEnv, labelHomEnv, 'homEnv', v => params.homophily.env     = 
 
 // feature dropdown
 ;(function initFeatures() {
-  ;( ['meanAllele','env','educationScore','income','parentIncome'] as FeatureKey[] )
+  ;( ['meanAllele','env','educationScore','wealth','parentWealth'] as FeatureKey[] )
     .forEach(key => {
       const opt = document.createElement('option')
       opt.value = key
       opt.textContent = key
       featureSelect.appendChild(opt)
     })
-  featureSelect.value = 'income'
+  featureSelect.value = 'wealth'
 })()
 
 // kick it off
