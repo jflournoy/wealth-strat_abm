@@ -84,7 +84,7 @@
         </ul>
       </li>
       </ul>
-    `},{id:"extensions",title:"Extensions & Ideas",content:`
+    `},{id:"extensions",title:"Ideas for Extensions",content:`
       <ul>
         <li>Progressive Education Subsidies: reduce the effect of environment for the bottom decile, either for one-generation or permanently.</li>
         <li>Genetic Compensation Policy: technologies such as eye-glasses reduce or remove the effect of some genetic disadvantages&mdash;boost the genetic scores of the bottom decile.</li>
