@@ -138,19 +138,81 @@ raster-container {
   height: auto;     /* preserve aspect ratio if you ever change it */
 }
 
-/* 3) Help box fills exactly that same width and then wraps internally */
+/* 1) Help panel wrapper */
+.help-panel {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #ffffff;
+  overflow: hidden;
+  padding: 0.5em;
+}
+
+/* 2) Header bar (<h3>) */
+.help-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* 3) Style the “Show:” label (optional) */
+.help-title label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* 4) Custom-styled dropdown, matching the H3 look */
+.help-title select {
+  /* typography */
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  /* white “card” appearance */
+  background-color: #fff;
+  border: 0px solid #ccc;
+  border-bottom: 1px solid #ccc;
+
+  /* remove native arrow */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* padding leaves room for our arrow */
+  padding: 0.2em 2.5em 0.2em 0.5em;
+  cursor: pointer;
+
+  /* bold, custom down-caret SVG */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%200l5%207l5-7z%22%20fill%3D%22%23333%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6em center;
+  background-size: 0.6em auto;
+}
+
+/* 5) Focus state */
+.help-title select:focus {
+  outline: none; /* remove default focus ring */
+  background-color: #ffffc0; /* subtle highlight */
+}
+
+/* 6) Help text body */
+.help-content {
+  padding: 1em;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* 7) Container sizing */
 .raster-container #help-container {
   box-sizing: border-box;
-  width: 100%;            /* equals the inline-block’s width */
+  width: 100%;
   max-width: 600px;
-  margin: 1rem 0;
-  padding: 0.5rem;
-  background: #fafafa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  margin: 0rem 0;
+  padding: 0;               /* handled by .help-content */
   white-space: normal;
   overflow-wrap: break-word;
-  /* optional: cap its height and scroll if it gets too tall */
-  max-height: 500px;
+  height: 300px;
   overflow-y: auto;
 }
+

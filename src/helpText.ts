@@ -9,18 +9,26 @@ export interface HelpSection {
 
 export const helpSections: HelpSection[] = [
   {
-    id: 'overview',
+    id: 'intro',
     title: 'Overview',
     content: `
-      <h2>Agent-Based Inheritance & Socioeconomic Simulator</h2>
-      <p>This interactive model shows how traits and resources flow from one generation to the next through four stages:</p>
-      <ol>
-        <li><strong>Parent Genes → Genes</strong></li>
-        <li><strong>Parent Wealth → Environmental Endowment</strong></li>
-        <li><strong>Genes + Environment → Education Level</strong></li>
-        <li><strong>Education + Parent Wealth → Child Wealth</strong></li>
-      </ol>
-      <p>Adjust the sliders to explore how inheritance, environment, education, and chance combine to shape inequality over time.</p>
+    <p>This interactive model shows how traits and resources flow from one generation to the next through four stages:</p>
+    <ol>
+      <li><strong>Parent Genes → Genes</strong></li>
+      <li><strong>Parent Wealth → Environmental Endowment</strong></li>
+      <li><strong>Genes + Environment → Education Level</strong></li>
+      <li><strong>Education + Parent Wealth → Child Wealth</strong></li>
+    </ol>
+    <p>Adjust the sliders to explore how inheritance, environment, education, and chance combine to shape inequality over time.</p>
+    <p id="intro-text">Each "pixel" below is one agent. Each agent has it's own genetic
+    potential, environmental endowment, education success, and level of
+    wealth. To produce each new generation, the agents will be sampled and
+    mated to other agents (with some degree of assortative mating), and then
+    the offspring will inherit a mix of their parents' traits, and their
+    environment will be determined by their parents' wealth. There is some
+    random noise you can add into this process too. See the parameters to
+    the left, and the help text below for more information.
+    </p>
     `
   },
   // {
@@ -37,9 +45,8 @@ export const helpSections: HelpSection[] = [
     id: 'model',
     title: 'Model Structure',
     content: `
-      <h3>How the Model Runs</h3>
       <ul>
-        <li><strong>Initial</strong></strong> population: most parameters are drawn directly from a Gaussian distribution. Agent properties then evolve with each generation from there.</li>
+        <li><strong>Initial population</strong>: most parameters are drawn directly from a Gaussian distribution. Agent properties then evolve with each generation from there.</li>
         <li><strong>Genes</strong>: each agent inherits one randomly chosen "education" gene from each parent, with occasional mutation.</li>
         <li><strong>Environment</strong>: determined by the sum of parents' wealth, with optional noise added in to account for chance.</li>
         <li><strong>Education</strong>: is a function of the agent's average gene value (they inherit 2 alleles), and the environment value, weighted by the gene-environment proportion slider.</li>
@@ -53,109 +60,74 @@ export const helpSections: HelpSection[] = [
     id: 'plots',
     title: 'Plots',
     content: `
-      <h3>Plots</h3>
       <ul>
       <li><strong>Population Raster (center)</strong>: grid of agents colored by the selected attribute, always ordered by wealth.</li>
-      <li><strong>Histogram</strong>: distribution of genes, environment, education, or wealth.</li>
+      <li><strong>Histogram</strong>: distribution of genes, environment, education, or wealth. Wealth is log transformed. </li>
       <li><strong>Lorenz Curve</strong>: cumulative share of agents vs. cumulative share of wealth. Perfect wealth equality is a diagonal line.</li>
       <li><strong>Gini Coefficient</strong>: summary statistic (0&ndash;1) of wealth inequality.</li>
-      <li><strong>Time Series</strong>: tracks summary stats across generations.</li>
+      <li><strong>Time Series</strong>: tracks Gini across generations.</li>
       </ul>
     `
   },
   {
-    id: 'controls',
-    title: 'Controls',
+    id: 'philosophy',
+    title: 'Philosophical Presets',
     content: `
-      <h3>Controls</h3>
-      <ul>
-        <li><strong>Start</strong>: begin continuous simulation.</li>
-        <li><strong>Pause</strong>: pause the simulation.</li>
-        <li><strong>Reset</strong>: return to Generation 0.</li>
-        <li><strong>Step</strong>: advance one generation.</li>
+      
+    <ul>
+      <li>
+        <strong>Full Meritocracy</strong>
+        <ul style="list-style:none; margin:0 0 0 1.5em; padding:0;">
+          <li>Env 0% / 100% Gene → Education Success</li>
+          <li>Parent wealth 0% / 100% Education → Agent's Wealth</li>
+          <li style="font-style: italic;">We remove any influence of the environment, allowing individuals to realize their full potential through education. 
+          And then we allow that education to be the full determinant of their ultimate wealth. 
+          This is the meritocratic ideal: one rises or falls exactly in proportion to one's talents and abilities (including the ability to put in hard work).</li>
+        </ul>
+      </li>
+
+      <li>
+        <strong>Full Aristocracy</strong>
+        <ul style="list-style:none; margin:0 0 0 1.5em; padding:0;">
+          <li>Env --% / --% Gene → Education Success</li>
+          <li>Parent wealth 100% / 0% Education → Agent's Wealth</li>
+          <li style="font-style: italic;">Genetic or environmental contribution to education success is irrelevant. One's wealth and station is determined entirely by one's parents'</li>
+        </ul>
+      </li>
+
+      <li>
+        <strong>Full Equality...or is it?</strong>
+        <ul style="list-style:none; margin:0 0 0 1.5em; padding:0;">
+          <li>Env 100% / 0% Gene → Education Success</li>
+          <li>Parent wealth 0% / 100% Education → Agent's Wealth</li>
+          <li style="font-style: italic;">Education is determined entirely by the environment, and wealth is determined entirely by education. 
+          Someone's egalitarian ideal: all individuals are given equal opportunity to succeed, regardless of their genetic or parental background. But when we start with unequal environments, can this work...?</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Present-day Reality</strong>
+        <ul style="list-style:none; margin:0 0 0 1.5em; padding:0;">
+          <li>Env 50% / 50% Gene → Education Success</li>
+          <li>Parent wealth 70% / 30% Education → Agent's Wealth</li>
+          <li style="font-style: italic;">A somewhat realistic setting that reflects the current state of society, where both genetic and environmental factors contribute to education, and parental wealth plays a significant role in determining an agent's wealth.</li>
+        </ul>
+      </li>
       </ul>
-      <dl>
-        <dt>Color by</dt>
-        <dd>Choose Genes, Environmental Endowment, Education Level, or Wealth.</dd>
-        <dt>Env Quality Noise σ</dt>
-        <dd>Gaussian noise in environment (e.g., random exposures).</dd>
-        <dt>Gene → Education Weight</dt>
-        <dd>Mix of innate talent vs. environment in education:</dd>
-        <dd>
-          <ul>
-            <li>1 = pure meritocratic utopia (talent only)</li>
-            <li>0 = environmental determinism (parental influence only)</li>
-          </ul>
-        </dd>
-        <dt>Education → Wealth Weight</dt>
-        <dd>Mix of education vs. inheritance in wealth:</dd>
-        <dd>
-          <ul>
-            <li>1 = meritocracy (education only)</li>
-            <li>0 = aristocracy (inheritance only)</li>
-          </ul>
-        </dd>
-        <dt>Finance Success Noise σ</dt>
-        <dd>Random luck/accident in wealth attainment.</dd>
-        <dt>Gene Homophily</dt>
-        <dd>Assortative mating by genes (0 = random; 1 = nearest neighbors).</dd>
-        <dt>Environment Homophily</dt>
-        <dd>Assortative mating by environment (0 = random; 1 = nearest neighbors).</dd>
-      </dl>
-    `
-  },
-  {
-    id: 'context',
-    title: 'Political & Philosophical Context',
-    content: `
-      <h3>Political & Philosophical Context</h3>
-      <p><strong>Gene vs. Environment slider extremes:</strong></p>
-      <ul>
-        <li><em>1 (genes only):</em> Utopian meritocracy where success depends solely on talent.</li>
-        <li><em>0 (environment only):</em> Environmental determinism akin to nepotism or inherited privilege.</li>
-      </ul>
-      <p><strong>Education vs. Wealth slider extremes:</strong></p>
-      <ul>
-        <li><em>1 (education only):</em> Pure meritocracy (education drives wealth).</li>
-        <li><em>0 (inheritance only):</em> Aristocracy (wealth inherited unchanged).</li>
-      </ul>
-      <p><strong>Combined extremes:</strong></p>
-      <ul>
-        <li>Full meritocracy: Gene→Education=1 & Education→Wealth=1.</li>
-        <li>Full aristocracy: Gene→Education=0 & Education→Wealth=0.</li>
-      </ul>
-      <p><strong>Homophily sliders:</strong></p>
-      <ul>
-        <li>0 = random mating (no assortative pairing).</li>
-        <li>1 = strict nearest‐neighbor mating (social segregation).</li>
-      </ul>
-      <p>Use these settings to explore thought experiments on equality of opportunity, inherited privilege, and social stratification.</p>
     `
   },
   {
     id: 'extensions',
     title: 'Extensions & Ideas',
     content: `
-      <h3>Extensions & Experimental Interventions</h3>
       <ul>
-        <li><strong>Targeted Supports:</strong> e.g. zero out Env Quality Noise for the bottom 20% to model educational aid for disadvantaged groups.</li>
-        <li><strong>Genetic Interventions:</strong> e.g. override gene influences for low-scoring agents to simulate special education or medical treatments.</li>
-        <li><strong>Redistribution Schemes:</strong> apply progressive/regressive taxes to final wealth and observe Gini changes.</li>
-        <li><strong>Limitations:</strong> focuses on wealth, not broader quality of life or equality of condition (Sandel’s critique).</li>
+        <li>Progressive Education Subsidies: reduce the effect of environment for the bottom decile, either for one-generation or permanently.</li>
+        <li>Genetic Compensation Policy: technologies such as eye-glasses reduce or remove the effect of some genetic disadvantages&mdash;boost the genetic scores of the bottom decile.</li>
+        <li>Redistribution Schemes: apply progressive/regressive taxes to final wealth and observe Gini changes.</li>
+        <li>Universal Basic Endowment: give every newborn a fixed "starter wealth" or "starter education credit" before inheritance and education calculations.</li>
+        <li>Environmental Shock: introduce a one-time large Gaussian noise spike in Env for a random subset of agents (e.g., disasters, pandemics).</li>
+        <li>Negative Homophily: invert assortative mating logic so agents deliberately pair with those farthest from them in gene/env space.</li>
       </ul>
-    `
-  },
-  {
-    id: 'extras',
-    title: 'Extras & Tooltips',
-    content: `
-      <h3>Extras & Tooltips</h3>
-      <ul>
-        <li><strong>Hover</strong> over plots for precise values.</li>
-        <li><strong>Legends</strong> map colors to numeric ranges.</li>
-        <li><code>i</code> icon opens inheritance & inequality primer.</li>
-        <li>Auto-update toggle re-runs the simulation live when sliders move.</li>
-      </ul>
+
     `
   }
 ];
