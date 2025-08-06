@@ -117,7 +117,7 @@ export const helpSections: HelpSection[] = [
   },
   {
     id: 'extensions',
-    title: 'Extensions & Ideas',
+    title: 'Ideas for Extensions',
     content: `
       <ul>
         <li>Progressive Education Subsidies: reduce the effect of environment for the bottom decile, either for one-generation or permanently.</li>
