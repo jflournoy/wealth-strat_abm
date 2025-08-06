@@ -129,5 +129,34 @@ export const helpSections: HelpSection[] = [
       </ul>
 
     `
+  },
+  {
+    id: 'thepoint',
+    title: 'What is the Point',
+    content: `
+    <p>
+      We often think of improving society through the lens of 
+      improving education outcomes, e.g., by reducing the impact of environmental 
+      disadvantage, or by reducing the influence of parental wealth on one's chances of success. 
+      Many folks in my little corner of developmental child psychology and neuroscience focusing on 
+      childhood adversity and adolescent risk-taking often imagine giving at-risk kids a leg up through 
+      some intervention (e.g., growth mindset, or some early childhood support). This simulation is a way 
+      to help explore those ideas and see if they can lead to a more equal society. This is also inspired 
+      by my recent reading of Michael Sandel's 
+      <a href="https://us.macmillan.com/books/9780374289980/thetyrannyofmerit/">The Tyranny of Merit</a>, which 
+      describes two problems with meritocracy: first, it merely reorders the obviously unjust hierarchy of 
+      the aristocracy into a hierarchy based on "merit"; second, it leads individuals to assume that they deserve 
+      their place in this hierarchy. This also uses ideas developed by K. Paige Harden in 
+      <a href="https://press.princeton.edu/books/hardcover/9780691190808/the-genetic-lottery">The Genetic Lottery</a>
+      about why we must take genetic heredity seriously when contemplating justice. I'm not sure if either of 
+      these books tackle the more fundamental concept of "free will" directly, but neither leave very much room 
+      for it, as is right and proper. The terrible and useful conclusion of these lines of thoughts, which I seek 
+      to demonstrate (and test) in this simulation, is that if we care about wealth inequality <em>per se</em> (and we shouyld).
+      we probably can't simply use the levers that are so often presented to us. Equality of opportunity won't do it. 
+      Removing barriers to educational thriving, like environmental adversity, won't do it. Removing unequal advantages
+      won't do it. Is there anything in this simulation that will do it? I don't think so. If you have some ideas, or 
+      if you're able to get a significant shift downward in the Gini coefficient, <a href="mailto:jcflournoyphd@pm.me">email me</a>. 
+     </p>
+    `
   }
 ];

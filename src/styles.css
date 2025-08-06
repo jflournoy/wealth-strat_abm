@@ -216,3 +216,30 @@ raster-container {
   overflow-y: auto;
 }
 
+.site-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #666;
+  padding: 0.5rem 0;
+  border-top: 1px solid #ddd;
+  
+  /* ensure it’s always full-width below your layout */
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1rem;
+}
+
+.site-footer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.site-footer a:hover {
+  text-decoration: none;
+}
+
+
+.site-footer a i.fab {
+  margin-right: 0.25em;
+  vertical-align: text-bottom;
+}
