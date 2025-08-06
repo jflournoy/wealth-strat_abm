@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Agent Stratification Demo</title>
-  <script type="module" crossorigin src="./assets/index-Z-8zQ_dM.js"></script>
+  <script type="module" crossorigin src="./assets/index-DFo2mVyf.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-kjATt5-6.css">
 </head>
 <body>
@@ -25,42 +25,42 @@
 
       <label>
         <span class="label">Env Quality Noise σ:</span>
-        <span class="info">Random Gaussian variation in environmental endowment.</span><br />
+        <span class="info">Random Gaussian variation added to environmental endowment (e.g., luck, accident, idiosyncratic events).</span><br />
         <input id="slider-env-noise" type="range" min="0" max="2" step="0.01" value="0.1" />
         <span id="label-env-noise"></span>
       </label>
 
       <label>
         <span class="label">Environment → Education Success ← Genes:</span>
-        <span class="info">Education success is a mix of genetic talent and environmental endowment.</span><br />
+        <span class="info">The proportion of genetic education potential versus environmental endowment that goes into education success.</span><br />
         <input id="slider-gene-env" type="range" min="0" max="1" step="0.01" value="0.5" />
         <span id="label-gene-env"></span>
       </label>
 
       <label>
-        <span class="label">Education → Wealth Weight:</span>
-        <span class="info">Proportion of child wealth determined by education vs. parental wealth.</span><br />
+        <span class="label">Parent Wealth → Agent's Wealth ← Education Success:</span>
+        <span class="info">The proportion education success versus parental wealth that contributes to each agent's ultimate wealth.</span><br />
         <input id="slider-fin-weight" type="range" min="0" max="1" step="0.01" value="0.7" />
         <span id="label-fin-weight"></span>
       </label>
 
       <label>
-        <span class="label">Finance Success Noise σ:</span>
-        <span class="info">Random Gaussian noise in wealth attainment (e.g., luck or accidents).</span><br />
+        <span class="label">Agent's Wealth Noise σ:</span>
+        <span class="info">Random Gaussian variation added to ultimate wealth attainment (e.g., luck, accident, idiosyncratic events).</span><br />
         <input id="slider-fin-noise" type="range" min="0" max="2" step="0.01" value="0.10" />
         <span id="label-fin-noise"></span>
       </label>
 
       <label>
         <span class="label">Gene Homophily:</span>
-        <span class="info">Degree of assortative mating by genetic trait (0 = random; 1 = strict).</span><br />
+        <span class="info">Degree of like-with-like assortative mating by genetic education potential (0 = random; 1 = strict).</span><br />
         <input id="slider-hom-gene" type="range" min="0" max="1" step="0.01" value="0.0" />
         <span id="label-hom-gene"></span>
       </label>
 
       <label>
         <span class="label">Environment Homophily:</span>
-        <span class="info">Degree of assortative mating by environmental endowment (0 = random; 1 = strict).</span><br />
+        <span class="info">Degree of like-with-like assortative mating by environmental endowment (0 = random; 1 = strict).</span><br />
         <input id="slider-hom-env" type="range" min="0" max="1" step="0.01" value="0.0" />
         <span id="label-hom-env"></span>
       </label>
@@ -76,7 +76,15 @@
       <div class="raster-container">
         
         <p id="status"></p>
-      
+        <p id="intro-text">Each "pixel" below is one agent. Each agent has it's own genetic
+        potential, environmental endowment, education success, and level of
+        wealth. To produce each new generation, the agents will be sampled and
+        mated to other agents (with some degree of assortative mating), and then
+        the offspring will inherit a mix of their parents' traits, and their
+        environment will be determined by their parents' wealth. There is some
+        random noise you can add into this process too. See the parameters to
+        the left, and the help text below for more information.
+        </p>
         <canvas id="raster" width="400" height="400"></canvas>
 
         <div class="help-panel">

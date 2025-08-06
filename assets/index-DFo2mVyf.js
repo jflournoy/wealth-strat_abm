@@ -17,19 +17,13 @@
         <li><strong>Education + Parent Wealth → Child Wealth</strong></li>
       </ol>
       <p>Adjust the sliders to explore how inheritance, environment, education, and chance combine to shape inequality over time.</p>
-    `},{id:"technical",title:"Technical Architecture",content:`
-      <h3>Technical Architecture</h3>
-      <p>The <code>index.html</code> file defines static UI elements (divisions, canvas, controls). When you load the page, the browser parses this HTML, then executes the compiled JavaScript (from <code>main.ts</code>).</p>
-      <p>TypeScript is a typed superset of JavaScript: you write <code>*.ts</code> files, and the <code>vite</code> tool compiles them to <code>*.js</code> for the browser. This provides strong typing and a modern development experience with zero runtime penalty.</p>
-      <p><code>main.ts</code> initializes UI controls, injects help sections, and calls functions from <code>model.ts</code> to run the agent-based simulation each generation, including custom mating logic.</p>
-    `},{id:"implementation",title:"Implementation Details",content:`
+    `},{id:"model",title:"Model Structure",content:`
       <h3>How the Model Runs</h3>
       <ul>
-        <li>Genes: inherited randomly from two parents with optional mutation.</li>
-        <li>Environment: set by parents’ wealth each generation.</li>
-        <li>Education: weighted mix of genes vs. environment (Gene → Education slider).</li>
+        <li>Genes: each agent inherits one randomly chosen "education" gene from each parent, with occasional mutation.</li>
+        <li>Environment: set by parents' wealth each generation, with optional noise added in to account for chance.</li>
+        <li>Education: education success is a function of the average gene value, and the average environment value, weighted by the proportion contribution slider.</li>
         <li>Wealth: weighted mix of education vs. parental wealth (Education → Wealth slider).</li>
-        <li>Accident Noise: optional Gaussian noise in environment and wealth (Env Quality Noise, Finance Success Noise).</li>
         <li>Mating Logic: random or assortative by genes/environment controlled by homophily sliders.</li>
       </ul>
     `},{id:"plots",title:"Plots",content:`
