@@ -17,8 +17,39 @@ import {
   drawHistogram,
 } from './viz/plots'
 
-type FeatureKey = 'meanAllele' | 'env' | 'educationScore' | 'income' | 'parentIncome'
-type SliderKey = 'geneEnv' | 'envNoise' | 'finWeight' | 'finNoise' | 'homGene' | 'homEnv'
+import { helpSections } from "./helpText";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const dropdown = document.getElementById("help-dropdown") as HTMLSelectElement;
+  const helpContainer = document.getElementById("help-container")!;
+
+  // 1) Populate the <select>
+  helpSections.forEach(section => {
+    const opt = document.createElement("option");
+    opt.value = section.id;
+    opt.textContent = section.title;
+    dropdown.append(opt);
+  });
+
+  // 2) Render the initially selected section
+  function renderHelp(id: string) {
+    const sec = helpSections.find(s => s.id === id);
+    helpContainer.innerHTML = sec ? sec.content : "";
+  }
+
+  // 3) Hook change events
+  dropdown.addEventListener("change", () => {
+    renderHelp(dropdown.value);
+  });
+
+  // 4) Kick things off with the first section
+  if (helpSections.length > 0) {
+    dropdown.value = helpSections[0].id;
+    renderHelp(helpSections[0].id);
+  }
+
+  // … your existing bindSimulationControls(), drawRaster(), etc. …
+});
 
 // **Use deep‐clone on defaultParams** so homophily is always an object
 let params: Params = {

@@ -5,6 +5,7 @@ body {
   background-color: #f5f5f5;
 }
 
+
 /* Top-level two-column layout */
 .layout {
   display: flex;
@@ -64,9 +65,20 @@ body {
 
 /* Numeric value right-aligned */
 .slider-group span {
-  text-align: right;
+  text-align: center;
   font-variant-numeric: tabular-nums;
 }
+
+.slider-group span.info {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+}
+.slider-group span.label {
+  font-size: 1rem;
+  text-align: center;
+}
+
 
 /* Main content area: raster + charts */
 .content {
@@ -96,11 +108,6 @@ h3 {
   font-size: 1rem;
 }
 
-/* New: fix middle column size */
-.raster-container {
-  /* match your canvas size (or let it shrink/grow) */
-  flex: 0 0 auto;
-}
 
 /* Right‐hand plots column */
 .plots-container {
@@ -114,4 +121,36 @@ h3 {
 .plots-container .plot {
   /* if you want equal heights: */
   /* flex: 1; */
+}
+
+
+raster-container {
+  /* keeps flex-item sizing based on its content */
+  flex: 0 0 auto;
+  /* make container hug its contents */
+  display: inline-block;
+}
+
+/* 2) Ensure the canvas itself still fills that container exactly */
+.raster-container canvas {
+  display: block;   /* remove inline whitespace */
+  width: 100%;      /* now equals the inline-block’s width */
+  height: auto;     /* preserve aspect ratio if you ever change it */
+}
+
+/* 3) Help box fills exactly that same width and then wraps internally */
+.raster-container #help-container {
+  box-sizing: border-box;
+  width: 100%;            /* equals the inline-block’s width */
+  max-width: 600px;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  /* optional: cap its height and scroll if it gets too tall */
+  max-height: 500px;
+  overflow-y: auto;
 }
