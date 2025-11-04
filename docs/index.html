@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agent Stratification Demo</title>
+  <script src="https://kit.fontawesome.com/ba344dd648.js" crossorigin="anonymous"></script>
+  <script type="module" crossorigin src="./assets/index-DnLGNZY7.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Bv1m27Kf.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="controls" class="sidebar">
+    <button id="start-btn">Start</button>
+    <button id="pause-btn">Pause</button>
+    <button id="reset-btn">Reset</button>
+    <button id="step-btn">Step</button>
+
+    <label>
+      Color by:
+      <select id="feature-select"></select>
+    </label>
+
+    <fieldset class="slider-group">
+      <legend>Model Parameters</legend>
+
+      <label>
+        <span class="label">Env Quality Noise σ:</span>
+        <span class="info">Random Gaussian variation added to environmental endowment (e.g., luck, accident, idiosyncratic events).</span><br />
+        <input id="slider-env-noise" type="range" min="0" max="2" step="0.01" value="0.1" />
+        <span id="label-env-noise"></span>
+      </label>
+
+      <label>
+        <span class="label">Environment → Education Success ← Genes:</span>
+        <span class="info">The proportion of genetic education potential versus environmental endowment that goes into education success.</span><br />
+        <input id="slider-gene-env" type="range" min="0" max="1" step="0.01" value="0.5" />
+        <span id="label-gene-env"></span>
+      </label>
+
+      <label>
+        <span class="label">Parent Wealth → Agent's Wealth ← Education Success:</span>
+        <span class="info">The proportion education success versus parental wealth that contributes to each agent's ultimate wealth.</span><br />
+        <input id="slider-fin-weight" type="range" min="0" max="1" step="0.01" value="0.7" />
+        <span id="label-fin-weight"></span>
+      </label>
+
+      <label>
+        <span class="label">Agent's Wealth Noise σ:</span>
+        <span class="info">Random Gaussian variation added to ultimate wealth attainment (e.g., luck, accident, idiosyncratic events).</span><br />
+        <input id="slider-fin-noise" type="range" min="0" max="2" step="0.01" value="0.10" />
+        <span id="label-fin-noise"></span>
+      </label>
+
+      <label>
+        <span class="label">Gene Homophily:</span>
+        <span class="info">Degree of like-with-like assortative mating by genetic education potential (0 = random; 1 = strict).</span><br />
+        <input id="slider-hom-gene" type="range" min="0" max="1" step="0.01" value="0.0" />
+        <span id="label-hom-gene"></span>
+      </label>
+
+      <label>
+        <span class="label">Environment Homophily:</span>
+        <span class="info">Degree of like-with-like assortative mating by environmental endowment (0 = random; 1 = strict).</span><br />
+        <input id="slider-hom-env" type="range" min="0" max="1" step="0.01" value="0.0" />
+        <span id="label-hom-env"></span>
+      </label>
+
+    </fieldset>
+  
+  </aside>
+    <main class="content">
+      <div class="raster-container">
+        <h2>Agent-Based Inheritance & Socioeconomic Simulator</h2>
+
+        <div class="help-panel">
+          <h3 class="help-title">
+            
+            <select id="help-dropdown"></select>
+            <span id="help-heading" class="help-heading"></span>
+          </h3>
+          <div id="help-container" class="help-content"></div>
+        </div>
+
+
+        <p id="status"></p>
+        <canvas id="raster" width="400" height="400"></canvas>
+      </div>
+      <div class="plots-container">
+        <h3 id="hist-wealth-title">Distribution of wealth</h3>
+        <svg id="histogram-wealth" width="400" height="200"></svg>
+
+        <h3 id="hist-title">Distribution of wealth</h3>
+        <svg id="histogram" width="400" height="200"></svg>
+
+        <h3>Lorenz Curve</h3>
+        <svg id="lorenz" width="400" height="200"></svg>
+
+        <h3>Gini Over Time</h3>
+        <svg id="gini"   width="400" height="200"></svg>
+      </div>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>
+      MIT License 2025 John C. Flournoy.  
+      <a href="https://github.com/jflournoy/wealth-strat_abm" target="_blank" rel="noopener">
+       <i class="fab fa-github" aria-hidden="true"></i> View on GitHub
+      </a>
+    </p>
+  </footer>
+  <!-- make sure this is *after* all your elements -->
+  <!-- 100% privacy-first analytics -->
+  <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+</body>
+</html>
