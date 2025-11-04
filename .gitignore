@@ -65,3 +65,5 @@ package-lock.json
 *v8.log
 .history
 /lib/
+.monitor-history.json
+.monitor-status.json
