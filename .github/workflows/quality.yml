@@ -49,7 +49,7 @@ jobs:
     - name: Validate documentation
       run: |
         echo "📚 Validating documentation..."
-        npm run docs validate
+        npm run docs:validate
     
     - name: Check command count
       run: |
