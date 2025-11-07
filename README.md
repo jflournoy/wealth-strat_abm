@@ -1,5 +1,7 @@
 # Wealth Stratification ABM
 
+![Claude Code Commands](https://img.shields.io/badge/commands-14-blue)
+
 An **Agent-Based Model** demonstrating how wealth inequality emerges and evolves across generations through the interplay of genetic potential, environmental factors, assortative mating, and stochastic events. See the [live demo](http://johnflournoy.science/wealth-strat_abm/).
 
 ## Table of Contents
